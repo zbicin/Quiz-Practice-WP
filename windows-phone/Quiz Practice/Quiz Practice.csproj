@@ -212,6 +212,7 @@
     <Content Include="www\cordova.js" />
     <Content Include="www\index.html" />
     <Content Include="www\css\index.css" />
+    <Content Include="www\js\errorLogger.js" />
     <Content Include="www\js\index.js" />
     <Content Include="www\img\logo.png" />
     <Content Include="Images\appbar.back.rest.png" />
@@ -220,6 +221,9 @@
     <Content Include="Images\appbar.next.rest.png" />
     <Content Include="Images\appbar.save.rest.png" />
     <Content Include="Images\appbar.stop.rest.png" />
+    <Content Include="www\js\QuestionClass.js" />
+    <Content Include="www\js\questionsRepository.js" />
+    <Content Include="www\js\quiz.js" />
     <None Include="cordova\lib\build.js" />
     <None Include="cordova\lib\clean.js" />
     <None Include="cordova\lib\deploy.js" />
