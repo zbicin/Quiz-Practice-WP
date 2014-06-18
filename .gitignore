@@ -231,3 +231,21 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+.DS_Store
+.*.sw?
+*.cso
+tmp/
+*.xcodeproj/* !*.xcodeproj/project.pbxproj
+lib/iphone/phonegap-min.js
+lib/iphone/phonegap.js
+android/bin
+android/gen
+=======
+default.properties
+gen
+assets/www/phonegap.js
+local.properties
+framework/phonegap.jar
+framework/bin
+framework/assets/www/.DS_Store
