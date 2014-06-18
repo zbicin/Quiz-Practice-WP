@@ -1,5 +1,7 @@
 ﻿var app = {
     tags: {},
+    goodAnswersCount: 0,
+    totalAnswersCount: 0,
 
     questions: [],
     currentQuestion: null,
@@ -29,6 +31,7 @@
         app.tags.nextButton = document.getElementById("nextQuestionButton");
         app.tags.randomButton = document.getElementById("randomQuestionButton");
         app.tags.previousButton = document.getElementById("previousQuestionButton");
+        app.tags.ratio = document.getElementById("successRatio");
 
         app.randomizeQuestion();
         app.UI.updateQuestion();
@@ -74,11 +77,17 @@
     checkAnswers: function(chosenVariant) {
         if (chosenVariant.getAttribute("data-variantid") == app.currentQuestion.goodVariant) {
             app.UI.markAsGood(chosenVariant);
+            app.goodAnswersCount++;
+            app.totalAnswersCount++;
         }
         else {
             app.UI.markAsBad(chosenVariant);
             app.UI.markAsGood(app.tags.variants.children[app.currentQuestion.goodVariant]);
+            app.totalAnswersCount++;
         }
+
+        app.UI.updateRatio();
+        app.UI.unbindVariants();
     },
 
     UI: {
@@ -111,10 +120,18 @@
 
         bindVariants: function () {
             for (var i = 0; i < app.currentQuestion.variants.length; i++) {
-                app.tags.variants.children[i].addEventListener("click", function () {
-                    app.UI.unmarkAll();
-                    app.checkAnswers(this);
-                }, false);
+                app.tags.variants.children[i].addEventListener("click", app.UI.variantClick, false);
+            }
+        },
+
+        variantClick: function () {
+            app.UI.unmarkAll();
+            app.checkAnswers(this);
+        },
+
+        unbindVariants: function() {
+            for (var i = 0; i < app.currentQuestion.variants.length; i++) {
+                app.tags.variants.children[i].removeEventListener("click", app.UI.variantClick, false);
             }
         },
 
@@ -147,6 +164,10 @@
                 app.previousQuestion();
                 app.UI.updateQuestion();
             }, false);
+        },
+
+        updateRatio: function () {
+            app.tags.ratio.innerHTML = Math.round(100*app.goodAnswersCount/app.totalAnswersCount) + "% correct answers."
         }
     }
 };

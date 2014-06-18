@@ -43,3 +43,9 @@ body {
 .bad {
     background-color: #fdd;
 }
+
+#successRatio {
+    color: #888;
+    font-size: 10px;
+    text-align: center;
+}
