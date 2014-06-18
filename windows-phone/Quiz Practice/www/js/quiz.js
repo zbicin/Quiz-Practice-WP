@@ -27,10 +27,12 @@
         app.tags.content = document.getElementById("content");
         app.tags.variants = document.getElementById("variants");
         app.tags.nextButton = document.getElementById("nextQuestionButton");
+        app.tags.randomButton = document.getElementById("randomQuestionButton");
+        app.tags.previousButton = document.getElementById("previousQuestionButton");
 
         app.randomizeQuestion();
         app.UI.updateQuestion();
-        app.UI.bindNextButton();
+        app.UI.bindButtons();
     },
 
     randomizeQuestion: function () {
@@ -41,6 +43,31 @@
         while (questionIndex == app.currentQuestionIndex);
 
         app.currentQuestionIndex = questionIndex;
+
+        app.updateCurrentQuestion();
+    },
+
+    nextQuestion: function () {
+        app.currentQuestionIndex++;
+
+        if (app.currentQuestionIndex == app.questions.length) {
+            app.currentQuestionIndex = 0;
+        }
+
+        app.updateCurrentQuestion();
+    },
+
+    previousQuestion: function () {
+        app.currentQuestionIndex--;
+
+        if (app.currentQuestionIndex<0) {
+            app.currentQuestionIndex = app.questions.length-1;
+        }
+
+        app.updateCurrentQuestion();
+    },
+
+    updateCurrentQuestion: function() {
         app.currentQuestion = app.questions[app.currentQuestionIndex];
     },
 
@@ -62,7 +89,8 @@
         },
 
         addVariant: function (variantid) {
-            var text = app.currentQuestion.variants[variantid];
+            var letters = ["A) ", "B) ", "C) ", "D) ", "E) "];
+            var text = letters[variantid] + app.currentQuestion.variants[variantid];
             var newListElement = document.createElement("li");
             newListElement.appendChild(document.createTextNode(text));
             newListElement.setAttribute("data-variantid", variantid);
@@ -70,7 +98,7 @@
         },
 
         updateQuestion: function () {
-            app.tags.content.innerHTML = app.currentQuestion.content;
+            app.tags.content.innerHTML = (app.currentQuestionIndex+1) + "/" + app.questions.length + ": " + app.currentQuestion.content;
             
             app.UI.clearVariants();
 
@@ -104,9 +132,19 @@
             }
         },
 
-        bindNextButton: function () {
+        bindButtons: function () {
             app.tags.nextButton.addEventListener("click", function () {
+                app.nextQuestion();
+                app.UI.updateQuestion();
+            }, false);
+
+            app.tags.randomButton.addEventListener("click", function () {
                 app.randomizeQuestion();
+                app.UI.updateQuestion();
+            }, false);
+
+            app.tags.previousButton.addEventListener("click", function () {
+                app.previousQuestion();
                 app.UI.updateQuestion();
             }, false);
         }

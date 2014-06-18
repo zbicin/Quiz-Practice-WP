@@ -247,6 +247,7 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="www\js\questionsRepositoryForouzan.js.tmp" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
