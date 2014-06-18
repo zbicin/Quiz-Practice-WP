@@ -83,7 +83,8 @@
 
         bindVariants: function () {
             for (var i = 0; i < app.currentQuestion.variants.length; i++) {
-                app.tags.variants.children[i].addEventListener("click", function() {
+                app.tags.variants.children[i].addEventListener("click", function () {
+                    app.UI.unmarkAll();
                     app.checkAnswers(this);
                 }, false);
             }
@@ -95,6 +96,12 @@
 
         markAsBad: function (variantTag) {
             variantTag.classList.add("bad");
+        },
+
+        unmarkAll: function () {
+            for (var i = 0; i < app.tags.variants.children.length; i++) {
+                app.tags.variants.children[i].className = "";
+            }
         },
 
         bindNextButton: function () {
